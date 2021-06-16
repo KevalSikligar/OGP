@@ -1,0 +1,199 @@
+﻿@model OGP_Portal.Service.Dtos.BPartnerDto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+@section Style{
+
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+}
+
+<form id="frmBPartner" asp-action="AddEditBPartner" asp-controller="ManageUser" asp-area="Admin" method="post">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">@(Model.Id == 0 ? "Add " : "Edit ")Business Partner</h5>
+        <button type="button" id="btnclose" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+       
+    </div>
+    <div class="modal-body pb-0">
+        <div class="accordian-block border-0">
+            <div class="accordian-para acc-show p-0">
+
+             
+                <input asp-for="Id" type="hidden" class="form-control">
+                <div class="mt-0">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group mb-3">
+                                <label>Name <span class="text-danger">*</span></label>
+                                <input asp-for="Name" name="Name" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group mb-3">
+                                <label>Mobile<span class="text-danger">*</span></label>
+                                <input asp-for="Mobile" name="Mobile" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+               
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-12">
+                            <div class="form-group mb-3">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input asp-for="Email" name="Email" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+            
+
+
+                 <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>Quantity of OGP <span class="text-danger">*</span></label>
+                            <input asp-for="Quantity_of_OGP" name="Quantity_of_OGP" type="number" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>location <span class="text-danger">*</span></label>
+                            <input asp-for="location" name="location" type="text" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>Password <span class="text-danger">*</span></label>
+                            <input asp-for="Password" name="Password" type="password" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>Confirmed Password <span class="text-danger">*</span></label>
+                            <input name="ConfirmPassword" type="password" class="form-control" />
+
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary px-4">Save</button>
+
+
+    </div>
+
+
+</form>
+
+
+<script>
+    $(document).ready(function () {
+
+        var validationresult = $("#frmBPartner").validate({
+
+
+            rules: {
+                "Name": {
+                    required: true
+                },
+                "location": {
+                    required: true
+                },
+                "Email": {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "/Admin/ManageUser/CheckEmail",
+                        type: "GET",
+                        data: {
+                            Email: function () { return $("#Email").val(); }, Id: function () { $("#Id").val();  } }
+                 }
+                },
+                "Mobile": {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10,
+                    number:true
+                },
+                "Quantity_of_OGP": {
+                    required: true,
+                    minlength: 1,
+                    number: true
+                },
+                "CompanyWebsite": {
+                    required: true,
+
+                },
+                "FirstName": {
+                    required: true
+                },
+                "LastName": {
+                    required: true
+                },
+                "Password": {
+                    required: true,
+                    minlength: 6
+                },
+                "ConfirmPassword": {
+                    required: true,
+                    equalTo:"#Password"
+                }
+            },
+            messages: {
+                "Name": {
+                    required: "Name is required"
+                },
+                "location": {
+                    required: "location is required"
+                },
+                 "Mobile": {
+                     required: "Mobile is required"
+                },
+                "Email": {
+                    remote: "Email is already in use",
+                    required:"Please Enter Email"
+                },
+                "Password": {
+                    required:"Password required"
+                },
+                "ConfirmPassword": {
+                    required: "Confirm Password required",
+                    equalTo:"Password not matched."
+                }
+            },
+            submitHandler: function (form) {
+                
+                let post_url = form.action;
+                let form_data = $(form).serialize();
+                $.post(post_url, form_data, function (response) {
+                    toastr.success(response.message);
+                    closeModal();
+                    BindUserList("#dtBPartner");
+                });
+            }
+        });
+
+    });
+
+
+</script>
+
+

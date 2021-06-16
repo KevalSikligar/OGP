@@ -1,0 +1,216 @@
+﻿
+@{
+    Layout = null;
+}
+@section Style{
+
+    <style>
+        .error {
+            color: red !important;
+        }
+    </style>
+}
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Business Partner OGP History</h5>
+    <button type="button" id="btnclose" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title"></h4>
+
+
+            </div>
+            <table id="DTHistory" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Vendor Name </th>
+                        <th>Assembly Type </th>
+                        <th>Shell Receipt </th>
+                        <th>Shell Welding</th>
+                        <th>Top D'end Receipt</th>
+                        <th>Fabrication</th>
+                        <th>Sent to paint</th>
+                        <th>Received after Paint</th>
+                        <th>Readiness</th>
+                        <th>BDE Receipt</th>
+                        <th>BDE readiness</th>
+                        <th>Shell#BDE</th>
+                        <th>Shell#BDE Sent to Paint</th>
+                        <th>Shell#BDE Received after paint</th>
+                        <th>SH,BDE # TDE</th>
+                        <th>Skid Receipt</th>
+                        <th>Installation Skid </th>
+                        <th>APT</th>
+                        <th>HPT</th>
+                        <th>Final Paint</th>
+                        <th>Dispatch</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+        var tableId = "";
+        $(document).ready(function () {
+
+            tableId = "#DTHistory";
+            BindUserList(tableId);
+            $(".table").parent().addClass("tbl-responsive");
+        });
+
+
+        function BindUserList(tableId) {
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                $(tableId).dataTable().fnDestroy();
+            }
+            //DataTable
+            dynamic = $(tableId).DataTable({
+                "responsive": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "bSearchable": false,
+                "searching": false,
+                "scrollX": true,
+                "sAjaxSource": "/BusinessUser/BusinessUser/GetUserSide_B_HistoryList?partnerId=@Model",
+                "initComplete": function (settings, json) { },
+                "rowCallback": function (row, data, index) { },
+                "order": [[0, "desc"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ Entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 Entries"
+                },
+                "columns": [
+
+                    {
+                        "data": "createdDateSTR",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "name",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "asslytypeName",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shellReceipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shellWelding",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "topD_end_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "fabrication",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "sent_to_paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "received_after_Paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "readiness",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "bdE_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "bdE_readiness",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE_Sent_to_Paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE_Received_after_paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "sH_BDE_TDE",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "skid_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "installation_Skid",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "apt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "hpt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "final_Paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "dispatch",
+                        "autoWidth": true
+                    }
+                ]
+            });
+
+
+
+        }
+
+
+
+
+</script>
+
+
+

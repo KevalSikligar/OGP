@@ -1,0 +1,21 @@
+@media(max-width: 1199px){
+	.cb-title h3{font-size: 1rem; }
+	.cb-title h5{font-size: .6375rem; }
+}
+
+@media(max-width: 991px){
+	.cb-title h3.cbt-name{width: 100%;}
+}
+
+@media(max-width: 767px){
+}
+
+@media(max-width: 575px){
+}
+
+@media(max-width: 375px){
+}
+
+@media(max-width: 320px){
+	.btnAttend{margin: .25rem 0 0 0;}
+}

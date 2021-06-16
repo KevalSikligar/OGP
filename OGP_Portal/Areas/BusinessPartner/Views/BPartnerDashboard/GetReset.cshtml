@@ -1,0 +1,95 @@
+﻿@model OGP_Portal.Service.Dtos.ResetPasswordDto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "GetReset";
+    Layout = "~/Areas/BusinessPartner/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">L&T DEICH</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">Reset Password</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title">Reset Password</h4>
+
+
+            </div>
+            <form id="frmEntry" asp-action="Resetpassword" asp-controller="BPartnerDashboard" asp-area="BusinessPartner" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@(Model.Id == 0 ? "Add " : "Edit ")Reset Password</h5>
+                    <button type="button" id="btnclose" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body pb-0">
+                    <div class="accordian-block border-0">
+                        <div class="accordian-para acc-show p-0">
+
+                           
+                            <input asp-for="Id" type="hidden" class="form-control">
+                           
+                            <div class="mt-0">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group mb-3">
+                                            <label>Current Password<span class="text-danger">*</span></label>
+                                            <input asp-for="OldPassword" name="OldPassword" type="password" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group mb-3">
+                                            <label>New Password<span class="text-danger">*</span></label>
+                                            <input asp-for="NewPassword" name="NewPassword" type="password" class="form-control" required />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary px-4" >Save</button>
+
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/BusinessPartner/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">OGP Portal</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Business Partner</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">Dashboard</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title">OGP Listing </h4>
+
+                <a href="javascript:;" onclick="AddEditEntry(0,false)" class="btn btn-primary"><i class="icon-material-outline-assignment"></i> Add Entry</a>
+            </div>
+            <table id="dtEntry" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Assembly Type </th>
+                        <th>Shell Receipt </th>
+                        <th>Shell Welding</th>
+                        <th>Top D'end Receipt</th>
+                        <th>Fabrication</th> 
+                        <th>Sent to paint</th>
+                        <th>Received after Paint</th>
+                        <th>Readiness</th>
+                        <th>BDE Receipt</th>
+                        <th>BDE readiness</th>
+                        <th>Shell#BDE</th>
+                        <th>Shell#BDE Sent to Paint</th>
+                        <th>Shell#BDE Received after paint</th>
+                        <th>SH,BDE # TDE</th>
+                        <th>Skid Receipt</th>
+                        <th>Installation Skid </th>
+                        <th>APT</th>
+                        <th>HPT</th>
+                        <th>Final Paint</th>
+                        <th>Dispatch</th>
+                        
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/assets/js/finalValidation.js"></script>
+    <script>
+
+        var tableId = "";
+        $(document).ready(function () {
+
+            tableId = "#dtEntry";
+            BindEntryList(tableId);
+            $(".table").parent().addClass("tbl-responsive");
+        });
+
+
+        function BindEntryList(tableId) {
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                $(tableId).dataTable().fnDestroy();
+            }
+            //DataTable
+            dynamic = $(tableId).DataTable({
+                "responsive": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "scrollX": true,
+                "sAjaxSource": "/BusinessPartner/BPartnerDashboard/GetEntryList",
+                "initComplete": function (settings, json) { },
+                "rowCallback": function (row, data, index) { },
+                "order": [[0, "desc"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ Business Entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 Business Entries"
+                },
+                "columns": [
+                    
+                    {
+                        "data": "createdDateSTR",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "asslytypeName",
+                        "autoWidth": true,
+                    "render": function (data, type, row) {
+                        debugger;
+                        return data;
+                    }
+                    },
+                    {
+                        "data": "shellReceipt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "shellWelding",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "topD_end_Receipt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "fabrication",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "sent_to_paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "received_after_Paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "readiness",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "bdE_Receipt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "bdE_readiness",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "shell_BDE",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "shell_BDE_Sent_to_Paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "shell_BDE_Received_after_paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "sH_BDE_TDE",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "skid_Receipt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "installation_Skid",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "apt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "hpt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "final_Paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "dispatch",
+                        "autoWidth": true
+                    }
+                ]
+            });
+
+
+            $(tableId).on("change", ".admin_toggle", function (e) {
+                const current = $(e.currentTarget).find("input");
+                const id = $(current).data("id");
+
+                $.ajax({
+                    url: "/Admin/Master/ManageCompanyIsActive" + "/" + id,
+                    data: { id: id },
+                    type: "POST",
+                    success: function (response) {
+                        OGP.HandleResponse(response);
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            });
+        }
+
+        function AddEditEntry(id, isView) {
+            $("#modalContent").load(`/BusinessPartner/BPartnerDashboard/_AddEditEntry/${id}`, function () {
+
+
+                $("#divModal").modal('show');
+                //id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+                ////$("#exampleModalLabel").html("View Company");
+                //if (isView) {
+
+                //    $("#exampleModalLabel").html("View Company");
+                //    id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+
+                //    $("#modalContent").find('input').each(function () {
+                //        $(this).attr('disabled', true);
+                //    });
+                //    $("#modalContent").find('button,submit').each(function () {
+                //        $(this).hide();
+                //    });
+                //    $("#btnclose").show();
+
+                //}
+
+            });
+        }
+        function DeleteCompany(id) {
+            Jun.Confirm("Delete Company", Jun.typeModel.Warning, "Are you sure?", Jun.typeModel.Danger, "Yes, delete it!", function () {
+                $.ajax({
+                    url: "/Admin/Master/DeleteCompany",
+                    data: { id: id },
+                    type: "GET",
+                    success: function (response) {
+                        Jun.HandleResponse(response);
+                        if (response.status === 1) {
+                            refreshDatatable("#dtCompany", id);
+                        }
+                    },
+                    error: function (data) {
+                    }
+                });
+            }, function () { }
+            );
+        }
+
+    </script>
+}

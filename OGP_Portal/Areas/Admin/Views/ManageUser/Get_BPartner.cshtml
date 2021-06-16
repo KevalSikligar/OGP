@@ -1,0 +1,240 @@
+﻿
+@{
+    ViewData["Title"] = "Get_BPartner";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    @*<li class="breadcrumb-item"><a href="javascript: void(0);">L&T DEICH</a></li>*@
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">OGP Portal</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Manage Users</a></li>
+                    <li class="breadcrumb-item active">Business Partner</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">Business Partner</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title">Business Partner</h4>
+
+                <a href="javascript:;" onclick="AddPartner(0,false)" class="btn btn-primary"><i class="icon-material-outline-assignment"></i> Add Partner</a>
+            </div>
+            <table id="dtBPartner" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>OGP</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/assets/js/finalValidation.js"></script>
+    <script>
+
+        var tableId = "";
+        $(document).ready(function () {
+
+            tableId = "#dtBPartner";
+            BindUserList(tableId);
+            $(".table").parent().addClass("tbl-responsive");
+        });
+
+
+        function BindUserList(tableId) {
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                $(tableId).dataTable().fnDestroy();
+            }
+            //DataTable
+            dynamic = $(tableId).DataTable({
+                "responsive": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "scrollX": true,
+                "sAjaxSource": "/Admin/ManageUser/GetBPartnerList",
+                "initComplete": function (settings, json) { },
+                "rowCallback": function (row, data, index) { },
+                "order": [[0, "desc"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ Business Partners",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 Business Partners"
+                },
+                "columns": [
+
+                    {
+                        "data": "name",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "quantity_of_OGP",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "email",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "mobile",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "id",
+                        "autoWidth": true, "render": function (data, type, row) {
+                           
+                            var element = `<a onclick="AddPartner('${data}');" class="editAsset icon_cust_button" title="Edit"><i class="far fa-edit"></i></a> |   <a onclick="ResetPass('${row.id}');" class="deleteAsset icon_cust_button" title="Reset password"> <i class="fa fa-cog" aria-hidden="true"></i></a> | <a onclick="DeleteUser('${row.id}');" class="deleteAsset icon_cust_button" title="Delete"><i class="far fa-trash-alt"></i></a>`;
+                            return element;
+                        }
+                    }
+                ]
+            });
+
+
+            $(tableId).on("change", ".admin_toggle", function (e) {
+                const current = $(e.currentTarget).find("input");
+                const id = $(current).data("id");
+
+                $.ajax({
+                    url: "/Admin/Master/ManageCompanyIsActive" + "/" + id,
+                    data: { id: id },
+                    type: "POST",
+                    success: function (response) {
+                        OGP.HandleResponse(response);
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            });
+        }
+
+        function AddPartner(id, isView) {
+            $("#modalContent").load(`/Admin/ManageUser/_AddEditBPartner/${id}`, function () {
+
+                $("#divModal").modal('show');
+                $($("#divModal").find(".modal-dialog")).removeClass("modal-xl");
+                //id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+                ////$("#exampleModalLabel").html("View Company");
+                //if (isView) {
+
+                //    $("#exampleModalLabel").html("View Company");
+                //    id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+
+                //    $("#modalContent").find('input').each(function () {
+                //        $(this).attr('disabled', true);
+                //    });
+                //    $("#modalContent").find('button,submit').each(function () {
+                //        $(this).hide();
+                //    });
+                //    $("#btnclose").show();
+
+                //}
+
+            });
+        }
+        function DeleteUser(id) {
+
+            swal({
+                title: "Do you want to Delete the Partner?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "/Admin/ManageUser/RemoveUSer",
+                            data: { id: id },
+                            type: "GET",
+                            success: function (response) {
+                                toastr.success(response.message);
+                                if (response.status === 1) {
+                                    BindUserList("#dtBPartner", id);
+                                }
+                            },
+                            error: function (data) {
+                            }
+                        });
+                    } else {
+                        /*swal("Saved");*/
+                    }
+                });
+
+
+       
+        }
+        function ResetPass(id) {
+
+
+
+
+            swal({
+                title: "Do you want to reset password?",
+                text: "Default password will be  ' password '",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "/Admin/ManageUser/ResetUserPassword",
+                            data: { id: id },
+                            type: "GET",
+                            success: function (response) {
+                                toastr.success(response.message);
+                                if (response.status === 1) {
+                                    BindUserList("#dtBPartner", id);
+                                }
+                            },
+                            error: function (data) {
+                            }
+                        });
+                    } else {
+                        /*swal("Your imaginary file is safe!");*/
+                    }
+                });
+
+
+        
+        }
+    </script>
+}
+
+
+

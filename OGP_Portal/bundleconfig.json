@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/Bundle/OGP_Portal.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "wwwroot/css/site.css",
+      "wwwroot/assets/css/bootstrap.min.css",
+      "wwwroot/assets/css/icons.min.css",
+      "wwwroot/assets/css/app.min.css",
+      "wwwroot/assets/datatables/dataTables.bootstrap4.css",
+      "wwwroot/assets/datatables/buttons.bootstrap4.css",
+      "wwwroot/assets/datatables/responsive.bootstrap4.css",
+      "wwwroot/assets/css/custom.css",
+      "wwwroot/assets/css/responsive-cust.css",
+      "wwwroot/assets/css/tost.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Bundle/OGP_Portal.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "wwwroot/js/site.js",
+      "wwwroot/assets/js/vendor.js",
+      "wwwroot/assets/js/app.js",
+      "wwwroot/assets/datatables/jquery.dataTables.min.js",
+      "wwwroot/assets/datatables/dataTables.bootstrap4.min.js",
+      "wwwroot/assets/datatables/dataTables.buttons.min.js",
+      "wwwroot/assets/datatables/buttons.bootstrap4.min.js",
+      "wwwroot/assets/js/SweetAlert.js",
+      "wwwroot/assets/js/dialogs.js",
+      "wwwroot/assets/js/validation.js",
+      "wwwroot/assets/js/tost.js",
+      "wwwroot/assets/js/JQ_UI.js",
+      "wwwroot/assets/js/jquery-loading-overlay.js"
+    ]
+  }
+]

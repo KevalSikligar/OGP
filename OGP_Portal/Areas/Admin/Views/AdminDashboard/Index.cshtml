@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);"></a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);"></a>OGP Portal</li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">Dashboard</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title"></h4>
+
+               
+            </div>
+            <table id="dtAdminEntries" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                       <th>Date</th>
+                       <th>Vendor Name </th>
+                       <th>Assembly Type </th>
+                       <th>Shell Receipt </th>
+                       <th>Shell Welding</th>
+                       <th>Top D'end Receipt</th>
+                       <th>Fabrication</th> 
+                       <th>Sent to paint</th>
+                       <th>Received after Paint</th>
+                       <th>Readiness</th>
+                       <th>BDE Receipt</th>
+                       <th>BDE readiness</th>
+                       <th>Shell#BDE</th>
+                       <th>Shell#BDE Sent to Paint</th>
+                       <th>Shell#BDE Received after paint</th>
+                       <th>SH,BDE # TDE</th>
+                       <th>Skid Receipt</th>
+                       <th>Installation Skid </th>
+                       <th>APT</th>
+                       <th>HPT</th>
+                       <th>Final Paint</th>
+                       <th>Dispatch</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/assets/js/validation.js"></script>
+    <script>
+
+        var tableId = "";
+        $(document).ready(function () {
+
+            tableId = "#dtAdminEntries";
+            BindUserList(tableId);
+            $(".table").parent().addClass("tbl-responsive");
+        });
+
+
+        function BindUserList(tableId) {
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                $(tableId).dataTable().fnDestroy();
+            }
+            //DataTable
+            dynamic = $(tableId).DataTable({
+                "responsive": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "bSearchable": false,
+                "searching": false,
+                "scrollX": true,
+                "sAjaxSource": "/Admin/AdminDashboard/GetEntryList",
+                "initComplete": function (settings, json) { },
+                "rowCallback": function (row, data, index) { },
+                "order": [[0, "desc"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ Entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 Entries"
+                },
+                "columns": [
+                    {
+                        "data": "id",
+                        "autoWidth": true,
+                        "render": function (data, type, row) {
+                            debugger;
+                            var element = `<a onclick="AddEntry('${row.partnerId}','${row.id}');" class="editAsset icon_cust_button" title="Edit"><i class="far fa-edit"></i></a> `;
+                            //|  <a onclick="DeleteMeetingType('${row.id}');" class="deleteAsset icon_cust_button" title="Delete"><i class="far fa-trash-alt"></i></a>
+                            return element;
+                        }
+                    },
+                    {
+                        "data": "createdDateSTR",
+                        "autoWidth": true,
+                        "searchable":false
+                    },
+                    {
+                        "data": "name",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "asslytypeName",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shellReceipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shellWelding",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "topD_end_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "fabrication",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "sent_to_paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "received_after_Paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "readiness",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "bdE_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "bdE_readiness",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE_Sent_to_Paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "shell_BDE_Received_after_paint",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "sH_BDE_TDE",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "skid_Receipt",
+                        "autoWidth": true,
+                        "searchable": false
+                    },
+                    {
+                        "data": "installation_Skid",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "apt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "hpt",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "final_Paint",
+                        "autoWidth": true
+                    },
+                    {
+                        "data": "dispatch",
+                        "autoWidth": true
+                    }
+                ]
+            });
+
+
+            $(tableId).on("change", ".admin_toggle", function (e) {
+                const current = $(e.currentTarget).find("input");
+                const id = $(current).data("id");
+
+                $.ajax({
+                    url: "/Admin/Master/ManageCompanyIsActive" + "/" + id,
+                    data: { id: id },
+                    type: "POST",
+                    success: function (response) {
+                        OGP.HandleResponse(response);
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            });
+        }
+
+        function AddEntry(id, entryId) {
+            $("#modalContent").load(`/Admin/AdminDashboard/_AddEditEntry?Id=${id}&EntryId=${entryId}`, function () {
+
+
+                $("#divModal").modal('show');
+                //id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+                ////$("#exampleModalLabel").html("View Company");
+                //if (isView) {
+
+                //    $("#exampleModalLabel").html("View Company");
+                //    id !== 0 ? $("#ContactEmail").attr("disabled", true) : $("#ContactEmail").attr("disabled", false);
+
+                //    $("#modalContent").find('input').each(function () {
+                //        $(this).attr('disabled', true);
+                //    });
+                //    $("#modalContent").find('button,submit').each(function () {
+                //        $(this).hide();
+                //    });
+                //    $("#btnclose").show();
+
+                //}
+
+            });
+        }
+        function DeleteCompany(id) {
+            Jun.Confirm("Delete Company", Jun.typeModel.Warning, "Are you sure?", Jun.typeModel.Danger, "Yes, delete it!", function () {
+                $.ajax({
+                    url: "/Admin/Master/DeleteCompany",
+                    data: { id: id },
+                    type: "GET",
+                    success: function (response) {
+                        Jun.HandleResponse(response);
+                        if (response.status === 1) {
+                            refreshDatatable("#dtCompany", id);
+                        }
+                    },
+                    error: function (data) {
+                    }
+                });
+            }, function () { }
+            );
+        }
+
+    </script>
+}
+
+

@@ -1,0 +1,869 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewData["Title"] = "GetOGPEntry";
+	Layout = "~/Areas/BusinessPartner/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-12">
+		<div class="page-title-box">
+			<div class="page-title-right">
+				<ol class="breadcrumb m-0">
+					@*<li class="breadcrumb-item"><a href="javascript: void(0);">OGP Portal</a></li>*@
+					<li class="breadcrumb-item"><a href="javascript: void(0);">OGP Portal</a></li>
+					<li class="breadcrumb-item active">OGP Entry</li>
+				</ol>
+			</div>
+			<div class="dashboard-headline">
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<h4 class="page-title">OGP Listing</h4>
+				</nav>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card-box table-responsive">
+			@*<div class="d-flex align-items-center justify-content-between mb-4">
+					<h4 class="header-title">OGP Listing </h4>
+
+					<a href="javascript:;" onclick="AddEditEntry(0,false)" class="btn btn-primary"><i class="icon-material-outline-assignment"></i> Add Entry</a>
+				</div>*@
+
+			<div class="">
+
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">OGP Entry</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">OGP History</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="Forcasting-tab" data-toggle="tab" href="#Forcasting" role="tab" aria-controls="Forcasting" aria-selected="false">Forcasting</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+						<div class="custom_f_table">
+
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="table_title">Order Details</th>
+										<th class="table_title">Generator Max Quantity <lable class="MaxOGP"></lable></th>
+										<th class="table_title">Reciver Max Quantity  <lable class="MaxOGP"></lable></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="table_title">Action Name</td>
+										<td class="table_title">Generator </td>
+										<td class="table_title">Reciever</td>
+									</tr>
+									<tr>
+										<td class="sub_title">ShellReceipt</td>
+										<td><input Id="G_ShellReceipt" min="0" type="number" class="form-control" /></td>
+										<td><input Id="R_ShellReceipt" min="0" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">ShellWelding</td>
+										<td><input Id="G_ShellWelding" min="0" type="number" class="form-control" /></td>
+										<td><input Id="R_ShellWelding" min="0" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">TopD_end_Receipt</td>
+										<td><input Id="G_TopD_end_Receipt" min="0" type="number" class="form-control" /></td>
+										<td><input Id="R_TopD_end_Receipt" min="0" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Fabrication</td>
+										<td><input Id="G_Fabrication" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Fabrication" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Sent_to_paint</td>
+										<td><input Id="G_Sent_to_paint" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Sent_to_paint" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Received_after_Paint</td>
+										<td><input Id="G_Received_after_Paint" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Received_after_Paint" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Readiness</td>
+										<td><input Id="G_Readiness" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Readiness" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">BDE_Receipt</td>
+										<td><input Id="G_BDE_Receipt" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_BDE_Receipt" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">BDE_readiness</td>
+										<td><input Id="G_BDE_readiness" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_BDE_readiness" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Shell_BDE</td>
+										<td><input Id="G_Shell_BDE" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Shell_BDE" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Shell_BDE_Sent_to_Paint</td>
+										<td><input Id="G_Shell_BDE_Sent_to_Paint" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Shell_BDE_Sent_to_Paint" type="number" min="0" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Shell_BDE_Received_after_paint</td>
+										<td><input Id="G_Shell_BDE_Received_after_paint" type="number" min="0" class="form-control" /></td>
+										<td><input Id="R_Shell_BDE_Received_after_paint" type="number" min="0" class="form-control" /></td>
+									</tr>
+
+									<tr>
+										<td class="sub_title">SH_BDE_TDE</td>
+										<td><input Id="G_SH_BDE_TDE" type="number" class="form-control" min="0" /></td>
+										<td><input Id="R_SH_BDE_TDE" type="number" class="form-control" min="0" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Skid_Receipt</td>
+										<td><input Id="G_Skid_Receipt" type="number" class="form-control" min="0" /></td>
+										<td><input Id="R_Skid_Receipt" type="number" class="form-control" min="0" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Installation_Skid</td>
+										<td><input Id="G_Installation_Skid" type="number" class="form-control" min="0" /></td>
+										<td><input Id="R_Installation_Skid" type="number" class="form-control" min="0" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">APT</td>
+										<td><input Id="G_APT" type="number" class="form-control" min="0" /></td>
+										<td><input Id="R_APT" type="number" class="form-control" min="0" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">HPT</td>
+										<td><input Id="G_HPT" type="number" class="form-control" /></td>
+										<td><input Id="R_HPT" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Final_Paint</td>
+										<td><input Id="G_Final_Paint" type="number" class="form-control" /></td>
+										<td><input Id="R_Final_Paint" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title">Dispatch</td>
+										<td><input Id="G_Dispatch" type="number" class="form-control" /></td>
+										<td><input Id="R_Dispatch" type="number" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td class="sub_title"></td>
+										<td></td>
+										<td><button type="button" id="EntrySave" class="btn btn-primary w-100"> Save</button></td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+
+					<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+						@*secondtab content*@
+
+
+						<div class="row">
+							<div class="col-12">
+								<div class="card-box table-responsive">
+									<div class="d-flex align-items-center justify-content-between mb-4">
+										<h4 class="header-title"></h4>
+
+
+									</div>
+									<table id="dtpEntries" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+										<thead>
+											<tr>
+
+												<th>Sub. Date</th>
+												<th>Assly Type</th>
+												<th>Shell Receipt</th>
+												<th>Shell Mfg</th>
+												<th>BDE Receipt</th>
+												<th>Shell#BDE Fab</th>
+												<th>Shell#BDE Painting</th>
+												<th>Painted Shell#BDE Receipt</th>
+												<th>TDE Receipt</th>
+												<th>TDE Mfg</th>
+												<th>TDE Painting</th>
+												<th>Painted TDE Receipt</th>
+												<th>Assly # TDE Fab</th>
+												<th>Assly # TDE Fab.</th>
+												<th>Skid Mfg</th>
+												<th>Skid Receipt</th>
+												<th>Inst.Skid</th>
+												<th>APT</th>
+												<th>HPT</th>
+												<th>Final Paint	</th>
+												<th>Dispatch</th>
+
+
+											</tr>
+										</thead>
+
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+
+					<div class="tab-pane fade" id="Forcasting" role="tabpanel" aria-labelledby="Forcasting-tab">
+
+						@*Third tab content*@
+
+
+						<div class="row">
+							<div class="col-12">
+								<div class="card-box">
+									<div class="d-flex align-items-center justify-content-between mb-10">
+										<table>
+											<tbody>
+												<tr>
+													<td>
+														<table style="border:2px solid">
+															<thead>
+																<tr>
+																	<th>Date</th>
+																	<th>Quantity</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td><input type="date" id="ForcastDate" /></td>
+																	<td><input type="number" id="ForcastQuantity" /></td>
+																	<td><button id="ForcastSaveBtn">Add Plan</button></td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+													<td></td>
+													<td>
+														<table style="border:2px solid">
+															<thead style="border:2px solid">
+																<tr>
+																	<th style="border:2px solid">Business Partner</th>
+																	<th style="border:2px solid">Planned</th>
+																	<th style="border:2px solid">Balance</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td style="border:2px solid"><label id="partnerName"></label></td>
+																	<td style="border:2px solid"><label id="userOGP"></label></td>
+																	<td style="border:2px solid"><label id="userBalance"></label></td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
+
+
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<table id="tbl_Forcast" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Quantity</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+@section Scripts{
+	<script src="~/assets/js/validation.js"></script>
+	<script>
+		var SelectedId = 0;
+		var G_total = 0;
+		var R_total = 0;
+		var model = {
+			G_ShellReceipt: 0,
+			G_ShellWelding: 0,
+			G_TopD_end_Receipt: 0,
+			G_Fabrication: 0,
+			G_Sent_to_paint: 0,
+			G_Received_after_Paint: 0,
+			G_Readiness: 0,
+			G_BDE_Receipt: 0,
+			G_BDE_readiness: 0,
+			G_Shell_BDE: 0,
+			G_Shell_BDE_Sent_to_Paint: 0,
+			G_Shell_BDE_Received_after_paint: 0,
+			G_SH_BDE_TDE: 0,
+			G_Skid_Receipt: 0,
+			G_Installation_Skid: 0,
+			G_APT: 0,
+			G_HPT: 0,
+			G_Final_Paint: 0,
+			G_Dispatch: 0,
+			R_ShellReceipt: 0,
+			R_ShellWelding: 0,
+			R_TopD_end_Receipt: 0,
+			R_Fabrication: 0,
+			R_Sent_to_paint: 0,
+			R_Received_after_Paint: 0,
+			R_Readiness: 0,
+			R_BDE_Receipt: 0,
+			R_BDE_readiness: 0,
+			R_Shell_BDE: 0,
+			R_Shell_BDE_Sent_to_Paint: 0,
+			R_Shell_BDE_Received_after_paint: 0,
+			R_SH_BDE_TDE: 0,
+			R_Skid_Receipt: 0,
+			R_Installation_Skid: 0,
+			R_APT: 0,
+			R_HPT: 0,
+			R_Final_Paint: 0,
+			R_Dispatch: 0
+
+		}
+
+		$(document).off("click", "#EntrySave");
+		$(document).on("click", "#EntrySave", function () {
+			model.G_ShellReceipt = $("#G_ShellReceipt").val();
+			model.G_ShellWelding = $("#G_ShellWelding").val();
+			model.G_TopD_end_Receipt = $("#G_TopD_end_Receipt").val();
+			model.G_Fabrication = $("#G_Fabrication").val();
+			model.G_Sent_to_paint = $("#G_Sent_to_paint").val();
+			model.G_Received_after_Paint = $("#G_Received_after_Paint").val();
+			model.G_Readiness = $("#G_Readiness").val();
+			model.G_BDE_Receipt = $("#G_BDE_Receipt").val();
+			model.G_BDE_readiness = $("#G_BDE_readiness").val();
+			model.G_Shell_BDE = $("#G_Shell_BDE").val();
+			model.G_Shell_BDE_Sent_to_Paint = $("#G_Shell_BDE_Sent_to_Paint").val();
+			model.G_Shell_BDE_Received_after_paint = $("#G_Shell_BDE_Received_after_paint").val();
+			model.G_SH_BDE_TDE = $("#G_SH_BDE_TDE").val();
+			model.G_Skid_Receipt = $("#G_Skid_Receipt").val();
+			model.G_Installation_Skid = $("#G_Installation_Skid").val();
+			model.G_APT = $("#G_APT").val();
+			model.G_HPT = $("#G_HPT").val();
+			model.G_Final_Paint = $("#G_Final_Paint").val();
+			model.G_Dispatch = $("#G_Dispatch").val();
+			model.R_ShellReceipt = $("#R_ShellReceipt").val();
+			model.R_ShellWelding = $("#R_ShellWelding").val();
+			model.R_TopD_end_Receipt = $("#R_TopD_end_Receipt").val();
+			model.R_Fabrication = $("#R_Fabrication").val();
+			model.R_Sent_to_paint = $("#R_Sent_to_paint").val();
+			model.R_Received_after_Paint = $("#R_Received_after_Paint").val();
+			model.R_Readiness = $("#R_Readiness").val();
+			model.R_BDE_Receipt = $("#R_BDE_Receipt").val();
+			model.R_BDE_readiness = $("#R_BDE_readiness").val();
+			model.R_Shell_BDE = $("#R_Shell_BDE").val();
+			model.R_Shell_BDE_Sent_to_Paint = $("#R_Shell_BDE_Sent_to_Paint").val();
+			model.R_Shell_BDE_Received_after_paint = $("#R_Shell_BDE_Received_after_paint").val();
+			model.R_SH_BDE_TDE = $("#R_SH_BDE_TDE").val();
+			model.R_Skid_Receipt = $("#R_Skid_Receipt").val();
+			model.R_Installation_Skid = $("#R_Installation_Skid").val();
+			model.R_APT = $("#R_APT").val();
+			model.R_HPT = $("#R_HPT").val();
+			model.R_Final_Paint = $("#R_Final_Paint").val();
+			model.R_Dispatch = $("#R_Dispatch").val();
+
+
+
+			$.ajax({
+				url: `/BusinessPartner/BPartnerDashboard/PostOGPEntry`,
+				type: "POST",
+				data: { entry: model },
+				success: function (response) {
+					toastr.success(response.message);
+					window.location.href = `/BusinessPartner/BPartnerDashboard/GetOGPEntry`;
+
+				},
+				error: function (response) { },
+			});
+		});
+
+		$(document).ready(function () {
+
+			bindOGPData();
+			BindForcast("#tbl_Forcast");
+		})
+
+		$(document).on("change", "#home input", function () {
+			getTotal();
+			var OGP = $($(".MaxOGP")[0]).text();
+			OGP = OGP.replace("(", "");
+			OGP = OGP.replace(")", "");
+			OGP = parseInt(OGP);
+			var Current = parseInt($(this).val())
+
+			if (Current < 0) {
+				toastr.error("Invalid  Entry");
+				$("#EntrySave").prop("disabled", true);
+			}
+
+
+			if (Current > OGP || G_total > OGP || R_total > OGP) {
+				toastr.error("Limit exceeded");
+				$("#EntrySave").prop("disabled", true);
+			} else {
+				$("#EntrySave").prop("disabled", false);
+			}
+		});
+		function getTotal() {
+
+			G_total = 0;
+			R_total = 0;
+			G_total = G_total + parseInt($("#G_ShellReceipt").val());
+			G_total = G_total + parseInt($("#G_ShellWelding").val());
+			G_total = G_total + parseInt($("#G_TopD_end_Receipt").val());
+			G_total = G_total + parseInt($("#G_Fabrication").val());
+			G_total = G_total + parseInt($("#G_Sent_to_paint").val());
+			G_total = G_total + parseInt($("#G_Received_after_Paint").val());
+			G_total = G_total + parseInt($("#G_Readiness").val());
+			G_total = G_total + parseInt($("#G_BDE_Receipt").val());
+			G_total = G_total + parseInt($("#G_BDE_readiness").val());
+			G_total = G_total + parseInt($("#G_Shell_BDE").val());
+			G_total = G_total + parseInt($("#G_Shell_BDE_Sent_to_Paint").val());
+			G_total = G_total + parseInt($("#G_Shell_BDE_Received_after_paint").val());
+			G_total = G_total + parseInt($("#G_SH_BDE_TDE").val());
+			G_total = G_total + parseInt($("#G_Skid_Receipt").val());
+			G_total = G_total + parseInt($("#G_Installation_Skid").val());
+			G_total = G_total + parseInt($("#G_APT").val());
+			G_total = G_total + parseInt($("#G_HPT").val());
+			G_total = G_total + parseInt($("#G_Final_Paint").val());
+			G_total = G_total + parseInt($("#G_Dispatch").val());
+			R_total = R_total + parseInt($("#R_ShellReceipt").val());
+			R_total = R_total + parseInt($("#R_ShellWelding").val());
+			R_total = R_total + parseInt($("#R_TopD_end_Receipt").val());
+			R_total = R_total + parseInt($("#R_Fabrication").val());
+			R_total = R_total + parseInt($("#R_Sent_to_paint").val());
+			R_total = R_total + parseInt($("#R_Received_after_Paint").val());
+			R_total = R_total + parseInt($("#R_Readiness").val());
+			R_total = R_total + parseInt($("#R_BDE_Receipt").val());
+			R_total = R_total + parseInt($("#R_BDE_readiness").val());
+			R_total = R_total + parseInt($("#R_Shell_BDE").val());
+			R_total = R_total + parseInt($("#R_Shell_BDE_Sent_to_Paint").val());
+			R_total = R_total + parseInt($("#R_Shell_BDE_Received_after_paint").val());
+			R_total = R_total + parseInt($("#R_SH_BDE_TDE").val());
+			R_total = R_total + parseInt($("#R_Skid_Receipt").val());
+			R_total = R_total + parseInt($("#R_Installation_Skid").val());
+			R_total = R_total + parseInt($("#R_APT").val());
+			R_total = R_total + parseInt($("#R_HPT").val());
+			R_total = R_total + parseInt($("#R_Final_Paint").val());
+			R_total = G_total + parseInt($("#R_Dispatch").val());
+
+		}
+
+		function bindOGPData() {
+			$.ajax({
+				url: `/BusinessPartner/BPartnerDashboard/FatchOGP`,
+				type: "GET",
+				success: function (response) {
+
+					$("#partnerName").text(response.data.partnerName);
+					$("#userOGP").text(response.data.maxOGP);
+					$("#userBalance").text(response.data.balance);
+					$("#G_ShellReceipt").val(response.data.g_ShellReceipt);
+					$("#G_ShellWelding").val(response.data.g_ShellWelding);
+					$("#G_TopD_end_Receipt").val(response.data.g_TopD_end_Receipt);
+					$("#G_Fabrication").val(response.data.g_Fabrication);
+					$("#G_Sent_to_paint").val(response.data.g_Sent_to_paint);
+					$("#G_Received_after_Paint").val(response.data.g_Received_after_Paint);
+					$("#G_Readiness").val(response.data.g_Readiness);
+					$("#G_BDE_Receipt").val(response.data.g_BDE_Receipt);
+					$("#G_BDE_readiness").val(response.data.g_BDE_readiness);
+					$("#G_Shell_BDE").val(response.data.g_Shell_BDE);
+					$("#G_Shell_BDE_Sent_to_Paint").val(response.data.g_Shell_BDE_Sent_to_Paint);
+					$("#G_Shell_BDE_Received_after_paint").val(response.data.g_Shell_BDE_Received_after_paint);
+					$("#G_SH_BDE_TDE").val(response.data.g_SH_BDE_TDE);
+					$("#G_Skid_Receipt").val(response.data.g_Skid_Receipt);
+					$("#G_Installation_Skid").val(response.data.g_Installation_Skid);
+					$("#G_APT").val(response.data.g_APT);
+					$("#G_HPT").val(response.data.g_HPT);
+					$("#G_Final_Paint").val(response.data.g_Final_Paint);
+					$("#G_Dispatch").val(response.data.g_Dispatch);
+					$("#R_ShellReceipt").val(response.data.r_ShellReceipt);
+					$("#R_ShellWelding").val(response.data.r_ShellWelding);
+					$("#R_TopD_end_Receipt").val(response.data.r_TopD_end_Receipt);
+					$("#R_Fabrication").val(response.data.r_Fabrication);
+					$("#R_Sent_to_paint").val(response.data.r_Sent_to_paint);
+					$("#R_Received_after_Paint").val(response.data.r_Received_after_Paint);
+					$("#R_Readiness").val(response.data.r_Readiness);
+					$("#R_BDE_Receipt").val(response.data.r_BDE_Receipt);
+					$("#R_BDE_readiness").val(response.data.r_BDE_readiness);
+					$("#R_Shell_BDE").val(response.data.r_Shell_BDE);
+					$("#R_Shell_BDE_Sent_to_Paint").val(response.data.r_Shell_BDE_Sent_to_Paint);
+					$("#R_Shell_BDE_Received_after_paint").val(response.data.r_Shell_BDE_Received_after_paint);
+					$("#R_SH_BDE_TDE").val(response.data.r_SH_BDE_TDE);
+					$("#R_Skid_Receipt").val(response.data.r_Skid_Receipt);
+					$("#R_Installation_Skid").val(response.data.r_Installation_Skid);
+					$("#R_APT").val(response.data.r_APT);
+					$("#R_HPT").val(response.data.r_HPT);
+					$("#R_Final_Paint").val(response.data.r_Final_Paint);
+					$("#R_Dispatch").val(response.data.r_Dispatch);
+
+					$(".MaxOGP").text("(" + response.data.maxOGP + ")");
+
+
+				},
+				error: function (response) { },
+			});
+		}
+
+		var tableId = "";
+		$(document).ready(function () {
+
+			tableId = "#dtpEntries";
+			BindPList(tableId);
+			$(".table").parent().addClass("tbl-responsive");
+		});
+
+		function BindPList(tableId) {
+
+			if ($.fn.DataTable.isDataTable(tableId)) {
+				$(tableId).dataTable().fnDestroy();
+			}
+			//DataTable
+			dynamic = $(tableId).DataTable({
+				"responsive": true,
+				"bProcessing": true,
+				"bServerSide": true,
+				"scrollX": true,
+				"sAjaxSource": "/BusinessPartner/BPartnerDashboard/GetLogEntryList",
+				"initComplete": function (settings, json) { },
+				"rowCallback": function (row, data, index) { },
+				"order": [[0, "desc"]],
+				"language": {
+					"info": "Showing _START_ to _END_ of _TOTAL_ Entries",
+					"sInfoEmpty": "Showing 0 to 0 of 0 Entries"
+				},
+				"columns": [
+					{
+						"data": "createdDateSTR",
+						"autoWidth": true
+					},
+					{
+						"data": "asslytypeName",
+						"autoWidth": true,
+						"render": function (data, type, row) {
+
+							return data;
+						}
+					}
+					,
+					{
+						"data": "shellReceipt",
+						"autoWidth": true
+					}
+					,
+					{
+						"data": "shellWelding",
+						"autoWidth": true
+					},
+					{
+						"data": "topD_end_Receipt",
+						"autoWidth": true
+					},
+					{
+						"data": "fabrication",
+						"autoWidth": true
+					},
+					{
+						"data": "sent_to_paint",
+						"autoWidth": true
+					},
+					{
+						"data": "received_after_Paint",
+						"autoWidth": true
+					},
+					{
+						"data": "readiness",
+						"autoWidth": true
+
+					},
+					{
+						"data": "bdE_Receipt",
+						"autoWidth": true
+
+					},
+					{
+						"data": "bdE_readiness",
+						"autoWidth": true
+
+					},
+					{
+						"data": "shell_BDE",
+						"autoWidth": true
+
+					},
+					{
+						"data": "shell_BDE_Sent_to_Paint",
+						"autoWidth": true
+					},
+					{
+						"data": "shell_BDE_Received_after_paint",
+						"autoWidth": true
+					},
+					{
+						"data": "sH_BDE_TDE",
+						"autoWidth": true
+					},
+					{
+						"data": "skid_Receipt",
+						"autoWidth": true
+					},
+					{
+						"data": "installation_Skid",
+						"autoWidth": true
+					},
+					{
+						"data": "apt",
+						"autoWidth": true
+					},
+					{
+						"data": "hpt",
+						"autoWidth": true
+					},
+					{
+						"data": "final_Paint",
+						"autoWidth": true
+					},
+					{
+						"data": "dispatch",
+						"autoWidth": true
+					},
+				]
+			});
+
+
+
+		}
+
+
+		$(document).off("click", "#ForcastSaveBtn");
+		$(document).on("click", "#ForcastSaveBtn", function () {
+			data = {
+				Quantity: 0,
+				ForcastDate: ''
+			};
+
+			data.Quantity = $("#ForcastQuantity").val();
+			data.ForcastDate = $("#ForcastDate").val();
+
+			if (validateForcast()) {
+
+				if (SelectedId == 0) {
+					$.ajax({
+						url: `/BusinessPartner/BPartnerDashboard/AddForcast`,
+						type: 'POST',
+						data: { model: data },
+						success: function (response) {
+							if (response.status == 1) {
+								$("#ForcastDate").val('');
+								$("#ForcastQuantity").val('');
+								toastr.success(response.message);
+								BindForcast("#tbl_Forcast");
+							} else {
+								toastr.error(response.message);
+							}
+						},
+						error: function (response) { }
+					});
+				} else {
+					$.ajax({
+						url: `/BusinessPartner/BPartnerDashboard/UpdateForcast`,
+						type: 'POST',
+						data: { forcastId: SelectedId, quantity: data.Quantity },
+						success: function (response) {
+							if (response.status == 1) {
+								$("#ForcastDate").attr("readonly", false);
+								$("#ForcastDate").val('');
+								$("#ForcastQuantity").val('');
+								$("#ForcastSaveBtn").text("Add Plan");
+								toastr.success(response.message);
+								BindForcast("#tbl_Forcast");
+							} else {
+								toastr.error(response.message);
+							}
+						},
+						error: function (response) { }
+					});
+				}
+
+
+
+			} else {
+				toastr.error("Invalid data input occured !");
+			}
+
+		});
+
+
+		$(document).on("change", "#ForcastDate", function () {
+
+			$.ajax({
+				url: `/BusinessPartner/BPartnerDashboard/CheckForcast`,
+				type: 'GET',
+				data: { forcastDate: $("#ForcastDate").val() },
+				success: function (response) {
+					if (response.status == 1) {
+						return true;
+					} else {
+						swal({
+							title: "Forcast added already for this date.",
+							text: "Do you want to edit existing?",
+							icon: "warning",
+							buttons: true,
+							dangerMode: true,
+						})
+							.then((willDelete) => {
+								if (willDelete) {
+									$.ajax({
+										url: "/BusinessPartner/BPartnerDashboard/CheckForcast",
+										data: { forcastDate: $("#ForcastDate").val() },
+										type: "GET",
+										success: function (response) {
+
+											if (response.status === 0) {
+
+												var dbDate = new Date(response.data.forcastDate).toLocaleDateString().split('/');
+												dbDate = dbDate[1] + '/0' + dbDate[0] + '/' + dbDate[2]
+												EditForcast(response.data.id, dbDate, response.data.quantity, true);
+											}
+										},
+										error: function (data) {
+										}
+									});
+								} else {
+									/*swal("Saved");*/
+								}
+							});
+
+						return false;
+					}
+				},
+				error: function (response) { }
+			});
+		});
+		function validateForcast() {
+
+
+
+			if ($("#ForcastQuantity").val() == "" || $("#ForcastQuantity").val() <= 0 || $("#ForcastDate").val() == "")
+				return false;
+			else if ($("#ForcastQuantity").val() != "" && $("#ForcastQuantity").val() >= 1 && $("#ForcastDate").val() != "")
+				return true;
+
+		}
+
+		function EditForcast(id, date, quantity) {
+
+			var d = date.split('/')
+			var dbDate = new Date(d[2] + '-' + d[1] + '-' + d[0]);
+			$("#ForcastDate").val(dbDate.toISOString().split('T')[0]);
+			$("#ForcastQuantity").val(quantity);
+			SelectedId = id;
+			$("#ForcastDate").attr("readonly", true);
+			$("#ForcastSaveBtn").text("Update");
+			$("#ForcastQuantity").focus();
+
+		}
+
+		/*tbl_Forcast*/
+		function BindForcast(tableId) {
+
+			if ($.fn.DataTable.isDataTable(tableId)) {
+				$(tableId).dataTable().fnDestroy();
+			}
+			//DataTable
+			dynamic = $(tableId).DataTable({
+				"responsive": true,
+				"bProcessing": true,
+				"bServerSide": true,
+				"scrollX": true,
+				"sAjaxSource": "/BusinessPartner/BPartnerDashboard/GetForcastList",
+				"initComplete": function (settings, json) { },
+				"rowCallback": function (row, data, index) { },
+				"order": [[0, "desc"]],
+				"language": {
+					"info": "Showing _START_ to _END_ of _TOTAL_ Entries",
+					"sInfoEmpty": "Showing 0 to 0 of 0 Entries"
+				},
+				"columns": [
+					{
+						"data": "forcastDateStr",
+						"autoWidth": true
+					},
+					{
+						"data": "quantity",
+						"autoWidth": true
+					},
+					{
+						"data": "id",
+						"autoWidth": true,
+						"render": function (data, type, row) {
+							var d = row.forcastDateStr.split('/');
+							var dbDate = d[2] + '-' + d[1] + '-' + d[0];
+							var today = new Date().toLocaleDateString().split('/');
+							today = today[2] + '-' + today[0] + '-' + today[1];
+							var element = ``;
+							var d1 = Date.parse(dbDate);
+							var d2 = Date.parse(today);
+
+							if (d2 <= d1)
+								element = `<a onclick="EditForcast('${data}','${row.forcastDateStr}','${row.quantity}');" class="editAsset icon_cust_button" title="Edit"><i class="far fa-edit"></i></a> `;
+							else
+								element = `<a onclick="javascript:;" class="editAsset icon_cust_button" title="locked"><i class="fa fa-lock"></i></a> `;
+
+							return element;
+						}
+					}
+
+				]
+			});
+
+
+
+		}
+	</script>
+}
+

@@ -1,0 +1,324 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/BusinessUser/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+
+                    <li class="breadcrumb-item"><a href="javascript: void(0);"></a>OGP Portal</li>
+
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">Dashboard</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="header-title"></h4>
+
+
+            </div>
+            <table id="dtAdminEntries" class="table table-bordered  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                <thead>
+                    <tr>
+                       
+                        <th>Action</th>
+                        <th>Last Date</th>
+                        <th>Vendor Name</th>
+                        <th>Assly Type</th>
+                        <th>Shell Receipt</th>
+                        <th>Shell Mfg</th>
+                        <th>BDE Receipt</th>
+                        <th>Shell#BDE Fab</th>
+                        <th>Shell#BDE Painting</th>
+                        <th>Painted Shell#BDE Receipt</th>
+                        <th>TDE Receipt</th>
+                        <th>TDE Mfg</th>
+                        <th>TDE Painting</th>
+                        <th>Painted TDE Receipt</th>
+                        <th>Assly # TDE Fab</th>
+                        <th>Assly # TDE Fab.</th>
+                        <th>Skid Mfg</th>
+                        <th>Skid Receipt</th>
+                        <th>Inst.Skid</th>
+                        <th>APT</th>
+                        <th>HPT</th>
+                        <th>Final Paint	</th>
+                        <th>Dispatch</th>
+
+                       
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/assets/js/validation.js"></script>
+    <script>
+
+        var OGP_Colors = new Array();
+        OGP_Colors.push("#dbf4e8");
+        OGP_Colors.push("#f9ebd1");
+        OGP_Colors.push("#fdd2cc");
+        OGP_Colors.push("#c6e3cc");
+        OGP_Colors.push("#eaf36a");
+        OGP_Colors.push("#fccece");
+        OGP_Colors.push("#d5f6d0");
+        OGP_Colors.push("#cbd1ed");
+
+
+        function getRandomColor() {
+           // var letters = '0123456';
+           // var color = '#';
+            //for (var i = 0; i < 6; i++) {
+            //    color += letters[Math.floor(Math.random() * 16)];
+            //}
+            return OGP_Colors[Math.floor(Math.random() * (OGP_Colors.length - 0) + 0)];
+        }
+
+        var tableId = "";
+        var previousId = 0;
+        var currentColor = "";
+        var FirstPrinted = false;
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            tableId = "#dtAdminEntries";
+            BindUserList(tableId);
+            $(".table").parent().addClass("tbl-responsive");
+        });
+
+
+        function BindUserList(tableId) {
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                $(tableId).dataTable().fnDestroy();
+            }
+            //DataTable
+            dynamic = $(tableId).DataTable({
+                "responsive": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "scrollX": true,
+                "sAjaxSource": "/BusinessUser/BusinessUser/GetEntryList",
+                "initComplete": function (settings, json) { },
+                "rowCallback": function (row, data, index) {
+                    if (previousId == 0) {
+                        currentColor = getRandomColor()
+                    }
+                    
+                    if (FirstPrinted ==false || previousId == data.id) {
+                        //color row combo
+                        $('td', row).css("background-color", currentColor);
+                      //  $('td', row).css("font-weight", 'bold');
+                        previousId = data.id;
+                        FirstPrinted = true;
+                    } else {
+                        previousId = data.id;
+                        currentColor = getRandomColor()
+                        $('td', row).css("background-color", currentColor);
+                        //$('td', row).css("font-weight", 'bold');
+                    }
+
+                    //height Light
+
+                    var allcol = $('td', row);
+                    var previouscell = "";
+                    $.each(allcol, function (key, ele) {
+                        var cellValue = parseInt($(ele).text());
+                        if (cellValue != 'NaN' && cellValue <= 0)
+                        {
+                            
+                            $(previouscell).css("background-color", '#fcffb4');
+                        }else{
+                            previouscell=ele;
+                            }
+                    });
+
+
+
+
+                },
+                "order": [[0, "desc"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ Entries",
+                    "sInfoEmpty": "Showing 0 to 0 of 0 Entries"
+                },
+                "columns": [
+                    {
+                        "data": "id",
+                        "autoWidth": true,
+                        "orderable": false, 
+                        "sortable": false,
+                        "render": function (data, type, row) {
+                            var element = `<a onclick="ViewHistory('${data}');" class="editAsset icon_cust_button" title="Edit"><i class="far fa-eye"></i></a>`;
+                            return element;
+                        }
+
+                    },
+                    {
+                        "data": "createdDateSTR",
+                        "autoWidth": true,
+                         "sortable":false
+                    },
+                    {
+                        "data": "username",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "asslytype",
+                        "autoWidth": true,
+                        "sortable": false
+                    }
+                    ,
+                    {
+                        "data": "shellReceipt",
+                        "autoWidth": true,
+                        "sortable": false
+                    }
+                    ,
+                    {
+                        "data": "shellWelding",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "topD_end_Receipt",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "fabrication",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "sent_to_paint",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "received_after_Paint",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "readiness",
+                        "autoWidth": true,
+                        "sortable": false
+
+                    },
+                    {
+                        "data": "bdE_Receipt",
+                        "autoWidth": true,
+                        "sortable": false
+
+                    },
+                    {
+                        "data": "bdE_readiness",
+                        "autoWidth": true,
+                        "sortable": false
+
+                    },
+                    {
+                        "data": "shell_BDE",
+                        "autoWidth": true,
+                        "sortable": false
+
+                    },
+                    {
+                        "data": "shell_BDE_Sent_to_Paint",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "shell_BDE_Received_after_paint",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "sH_BDE_TDE",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "skid_Receipt",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "installation_Skid",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "apt",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "hpt",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "final_Paint",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                    {
+                        "data": "dispatch",
+                        "autoWidth": true,
+                        "sortable": false
+                    },
+                ]
+            });
+
+
+          
+        }
+
+        function ViewHistory(id) {
+            $("#modalContent").load(`/BusinessUser/BusinessUser/_BHistory?partnerId=${id}`, function () {
+                $("#divModal").modal('show');
+            });
+        }
+      
+
+    </script>
+}
+
+
+

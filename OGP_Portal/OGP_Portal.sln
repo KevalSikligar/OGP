@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP_Portal", "OGP_Portal.csproj", "{77924AE7-3C0F-4DD5-A05B-850961BE2774}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP_Portal.Data", "..\OGP_Portal.Data\OGP_Portal.Data.csproj", "{114008CD-9C8C-46AE-A0B1-B2F66892956F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP_Portal.Service", "..\OGP_Portal.Service\OGP_Portal.Service.csproj", "{A081383F-47B1-47AF-8660-F69923ED4318}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77924AE7-3C0F-4DD5-A05B-850961BE2774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77924AE7-3C0F-4DD5-A05B-850961BE2774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77924AE7-3C0F-4DD5-A05B-850961BE2774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77924AE7-3C0F-4DD5-A05B-850961BE2774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{114008CD-9C8C-46AE-A0B1-B2F66892956F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{114008CD-9C8C-46AE-A0B1-B2F66892956F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{114008CD-9C8C-46AE-A0B1-B2F66892956F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{114008CD-9C8C-46AE-A0B1-B2F66892956F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A081383F-47B1-47AF-8660-F69923ED4318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A081383F-47B1-47AF-8660-F69923ED4318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A081383F-47B1-47AF-8660-F69923ED4318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A081383F-47B1-47AF-8660-F69923ED4318}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29A9F1DB-78B5-401B-9493-B58130A9135B}
+	EndGlobalSection
+EndGlobal

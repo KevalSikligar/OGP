@@ -1,0 +1,138 @@
+.logo-box{background-color: #f6ba12/*#143c5a*/;}
+.logo .logo-lg-text-light,.logo .logo-sm-text-dark{font-size:.9375rem;color: #000;}
+
+.left-side-menu,.navbar-custom {background-color: #003D6E;}
+
+#sidebar-menu>ul>li>a{font-weight: 500;}
+#sidebar-menu>ul>li>a.active, #sidebar-menu>ul>li>a:active, 
+#sidebar-menu>ul>li>a:focus, #sidebar-menu>ul>li>a:hover{color: #000;background-color: #f6ba12/*#ffd63b*/;}
+#sidebar-menu>ul>li>ul{background-color: #014984}
+
+.valign-top{vertical-align: top !important;}
+
+/*table*/
+.table thead th,.table th,.table.tblOee td,.table td{vertical-align: middle;text-align: center;}
+.table th{white-space: nowrap;color: #333 !important;}
+.table tbody th{background: #f7f7f7;color: #333;}
+
+.table th.tc-head{background: #003D6E;font-size: .95rem;color: #ffdb75 !important;}
+.table th.tcd-head{background: #2C6CA0;color: #fff !important;}
+.table th.tcs-head{background: #fbc11f;color: #171717 !important;}
+.table .br2{border-right: 2px solid #53636f !important;}
+.table .brg2{border-right: 2px solid #dee2e6 !important;}
+.table .tcb-grey{background-color: #e6e6e6 !important;border-bottom-color: #bbb;}
+.table.tblClockchart{border: 2px solid #bbb;}
+.table td.bg-green:hover,.table td.bg-green.active {background-color: #209c47 !important;}
+.table td.bg-darkblue:hover,.table td.bg-darkblue.active {background-color: #003df5 !important;}
+.table td.bg-red:hover,.table td.bg-red.active {background-color: #ff0000 !important;}
+
+.table.tblOee td{padding: 0;}
+.table.tblOee .table.innerTable {margin: 0;border: 0;}
+/*.table.tblOee .table.innerTable.bl-1 {border-left: 1px solid #dee2e6;}*/
+.table.tblOee .table.innerTable td{padding: .85rem;border-right: 0;border-left: 0;border-top: 0;}
+.table.tblOee .table.innerTable tr:last-child td{border-bottom: 0;}
+
+.table.tblDailychecklist tr th:nth-child(2),.table.tblLubrication tr th:last-child{min-width: 300px;}
+.table.tblMaintanence tr th:nth-child(2),.table.tblChiller tr th:nth-child(3){min-width: 250px;}
+.table.tblChiller tr th:nth-child(2){min-width: 180px;}
+
+
+/**/
+.lnkLogout a.nav-link:hover{color: #f6ba12;}
+.notification-list a.nav-link:hover{color: rgba(255,255,255,.8);}
+
+
+
+/*tblParticipates*/
+.tblParticipates .thead-light th{background-color: transparent; border-bottom: 2px solid transparent;}
+.tblParticipates th,.tblParticipates td{padding: 5px;}
+
+/*tblMms*/
+.tblMms th,.tblMms td{text-align: left !important;}
+.tblMms .text-center{text-align: center !important;}
+.tblMms th:nth-child(2){width: 30%}
+
+/*background*/
+.table td.bg-success {background-color: #eafaef !important;}
+.table td.bg-danger {background-color: #fee1e3 !important;}
+.table td.bg-success th{border-color: #86cc9c;}
+.table td.bg-danger th{border-color: #f78787;}
+
+/* Login Screen Start */
+.custom_login {
+    background-color: #003D6E;
+}
+.custom_login .login_title{
+    margin: 20px 0 0 0;
+}
+.custom_login .login_title h3 {
+    text-align: center;
+    margin: 0 0 0 0;
+    color: #2d68b3;
+    font-size: 26px;
+}
+.custom_login .card {
+    border-radius: 20px;
+}
+.login_btn {
+    font-size: 18px;
+    margin: 10px 0 0 0;
+    background-color: #2d68b3;
+    border: 0;
+    padding: 8px 0;
+}
+
+.custom_login .form-control {
+    height: 45px;
+}
+.login_logo {
+    text-align: center;
+    background-color: #f6ba12;
+    padding: 25px 10px;
+    border-radius: 20px;
+}
+
+    .login_logo h3 {
+        font-size: 30px;
+        font-weight: 700;
+        font-style: italic;
+        margin: 0;
+        color: #003d6e;
+    }
+.logo-lg-text-light {
+    font-size: 22px;
+    font-style: italic;
+    color: #183e6e;
+}
+/* Login Screen End */
+/* Tab Form Start */
+.custom_f_table {
+}
+.custom_f_table table{
+    width: 100%;
+}
+    .custom_f_table .table_title {
+        font-size: 16px;
+        text-transform: capitalize;
+        font-weight: 600;
+        color: #333333;
+    }
+    .custom_f_table .sub_title {
+        font-size: 16px;
+        text-transform: capitalize;
+        font-weight: 600;
+        color: #777777;
+    }
+/* Tab Form End */
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #183e6e;
+    background-color: rgba(24, 62, 110, 0.2);
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-radius: 5px;
+}
+.nav-tabs .nav-item {
+    margin-bottom: 0px;
+}
+
+
