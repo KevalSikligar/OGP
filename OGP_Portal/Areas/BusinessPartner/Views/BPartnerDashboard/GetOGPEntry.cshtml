@@ -1000,15 +1000,15 @@
 				"columns": [
 					{
 						"data": "forcastDateStr",
-						"autoWidth": true
+						"autoWidth": false
 					},
 					{
 						"data": "quantity",
-						"autoWidth": true
+                        "autoWidth": false
 					},
 					{
 						"data": "id",
-						"autoWidth": true,
+                        "autoWidth": false,
 						"render": function (data, type, row) {
 							var d = row.forcastDateStr.split('/');
 							var dbDate = d[2] + '-' + d[1] + '-' + d[0];
