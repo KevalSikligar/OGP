@@ -88,9 +88,11 @@
                     }
 
                 </tr>
+              
                 @foreach (var item in Model.partnerFDDs)
                 {
 
+                    var templist = Model.fddDetails.Where(x => x.PartnerId == item.PartnerId).Select(x => x.ForcastDate).ToList();
             <tr>
 
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="25" align="center" valign=middle><b><font color="#000000">@item.BusinessPartner </font></b></td>
@@ -99,25 +101,32 @@
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><b><font size=4 color="#000000">@item.Balance</font></b></td>
 
 
+
+
                 @foreach (var fdd in Model.fddDetails.GroupBy(x => x.ForcastDate))
                 {
-                    @foreach (var f in fdd)
+
+                    foreach (var f in fdd)
                     {
                         @if (f.PartnerId == item.PartnerId)
                         {
 
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000">@f.Projected</font></td>
+                            <td style=" border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000 " align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000">@f.Projected </font></td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font>@f.Actual</td>
-                        }
-                        if (f.ForcastDate != fdd.Key)
-                        {
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
+
                         }
 
                     }
+                    if (!templist.Contains(fdd.Key))
+                    {
+
+                        <td style=" border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000 " align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
+                    }
+
 
                 }
+
 
             </tr>
                 }

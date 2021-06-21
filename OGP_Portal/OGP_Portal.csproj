@@ -46,7 +46,6 @@
     <Folder Include="Areas\BusinessPartner\Models\" />
     <Folder Include="Areas\BusinessUser\Data\" />
     <Folder Include="Areas\BusinessUser\Models\" />
-    <Folder Include="wwwroot\Bundle\" />
   </ItemGroup>
 
   <ItemGroup>

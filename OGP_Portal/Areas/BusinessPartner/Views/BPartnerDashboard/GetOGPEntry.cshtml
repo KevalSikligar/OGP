@@ -457,11 +457,11 @@
                                     <table id="tbl_Forcast" class="table table-bordered   nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                                         
-                                            <thead>
+                                            <thead style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <tr>
-                                                    <th>Forecasted Date</th>
-                                                    <th>Forecasted Quantity</th>
-                                                    <th>Action</th>
+                                                    <th style="width:20%">Forecasted Date</th>
+                                                    <th style="width:20%">Forecasted Quantity</th>
+                                                    <th style="width:20%">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -595,7 +595,26 @@
 
 			bindOGPData();
 			BindForcast("#tbl_Forcast");
+
+			setTimeout(function () {
+
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+			}, 2000);
 		})
+
+		
+        $(".nav-tabs a").click(function () {
+            $($.fn.dataTable.tables(true)).DataTable()
+                .columns.adjust();
+        });
+		//$(document).off('click', 'a[data-toggle="tab"]');
+		//$(document).on('click', 'a[data-toggle="tab"]', function () {
+			
+  //          $($.fn.dataTable.tables(true)).DataTable()
+  //              .columns.adjust();
+          
+  //      });
 
 		$(document).on("change", "#home input", function () {
 			getTotal();
@@ -611,12 +630,25 @@
 			}
 
 
-			if (Current > OGP || G_total > OGP || R_total > OGP) {
-				toastr.error("Limit exceeded");
-				$("#EntrySave").prop("disabled", true);
-			} else {
-				$("#EntrySave").prop("disabled", false);
-			}
+			//validation for All cells  total  check with OGP limit
+
+			//if (Current > OGP || G_total > OGP || R_total > OGP) {
+			//	toastr.error("Limit exceeded");
+			//	$("#EntrySave").prop("disabled", true);
+			//} else {
+			//	$("#EntrySave").prop("disabled", false);
+			//}
+
+
+			//validation for indevidual cell total check with OGP limit
+
+
+			if (parseInt($(this).val()) > OGP) {
+                toastr.error("Limit exceeded");
+                $("#EntrySave").prop("disabled", true);
+            } else {
+                $("#EntrySave").prop("disabled", false);
+            }
 		});
 		function getTotal() {
 
@@ -1000,15 +1032,15 @@
 				"columns": [
 					{
 						"data": "forcastDateStr",
-						"autoWidth": false
+						"autoWidth": true
 					},
 					{
 						"data": "quantity",
-                        "autoWidth": false
+                        "autoWidth": true
 					},
 					{
 						"data": "id",
-                        "autoWidth": false,
+                        "autoWidth": true,
 						"render": function (data, type, row) {
 							var d = row.forcastDateStr.split('/');
 							var dbDate = d[2] + '-' + d[1] + '-' + d[0];
@@ -1030,7 +1062,7 @@
 				]
 			});
 
-
+          
 
 		}
 	</script>

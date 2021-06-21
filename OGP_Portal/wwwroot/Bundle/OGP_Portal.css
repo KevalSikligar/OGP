@@ -34,7 +34,8 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    color: black !important;
 }
 @media (min-width: 768px) {
   html {
@@ -66,8 +67,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    color: black;
 }
 .footer {
   position: absolute;
@@ -76,6 +78,8 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
 
 @charset "UTF-8";/*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -875,8 +879,10 @@ div.dtr-bs-modal table.table tr:first-child td {
     margin-bottom: 0px;
 }
 
+body {
+color:black!important
 
-
+}
 @media(max-width: 1199px){
 	.cb-title h3{font-size: 1rem; }
 	.cb-title h5{font-size: .6375rem; }
@@ -1163,4 +1169,7 @@ button.toast-close-button {
         #toast-container > div.rtl {
             padding: 15px 50px 15px 15px
         }
+}
+body {
+    color: black !important;
 }
