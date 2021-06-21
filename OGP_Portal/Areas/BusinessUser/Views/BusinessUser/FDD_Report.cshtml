@@ -1,0 +1,199 @@
+﻿@model OGP_Portal.Service.Dtos.FDD_DTO
+@{
+    ViewData["Title"] = "FDD_Report";
+    Layout = "~/Areas/BusinessUser/Views/Shared/_Layout.cshtml";
+}
+<link href="~/assets/css/jqueryUI.css" rel="stylesheet" />
+<style>
+    td {
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+
+                    <li class="breadcrumb-item"><a href="javascript: void(0);"></a>OGP Portal</li>
+
+                    <li class="breadcrumb-item active">FDD Report</li>
+                </ol>
+            </div>
+            <div class="dashboard-headline">
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <h4 class="page-title">FDD Report</h4>
+                </nav>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-md-2">
+        <label>Start Date</label>
+        <input type="text" class="form-control" id="startDate" />
+    </div>
+    <div class="col-md-2">
+        <label>End Date</label>
+        <input type="text" class="form-control" id="endDate" />
+    </div>
+    <div class="col-md-2">
+        <button class="form-control mt-3" style=" color: #000; background-color: #f6ba12;" id="GanerateBtn"> Ganerate</button>
+    </div>
+    <div class="col-md-2">
+        <button class="form-control mt-3" style=" color: #000; background-color: #f6ba12;" id="btnDownload">Download</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 mt-3">
+        <div class="table-responsive">
+            <table cellspacing="0" border="0" class="m-auto">
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup span="27"></colgroup>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=3 height="61" align="center" valign=middle><b><font color="#000000">Business Partner</font></b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=3 align="center" valign=middle><b><font color="#000000">Total Planned</font></b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 rowspan=2 align="center" valign=middle><b><font size=4 color="#000000"><br></font></b></td>
+
+                </tr>
+                <tr>
+                    @foreach (var d in Model.fddDetails.GroupBy(x => x.ForcastDate))
+                    {
+
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle sdval="44357" sdnum="1033;1033;M/D/YYYY"><b><font color="#000000">@d.Key</font></b></td>
+
+                    }
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font color="#000000">Delivered</font></b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font color="#000000">Balance</font></b></td>
+                    @foreach (var d in Model.fddDetails.GroupBy(x => x.ForcastDate))
+                    {
+
+
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#F8CBAD"><font color="#000000">Projected</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle bgcolor="#9DC3E6"><font color="#000000">Actual</font></td>
+
+                    }
+
+                </tr>
+                @foreach (var item in Model.partnerFDDs)
+                {
+
+            <tr>
+
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="25" align="center" valign=middle><b><font color="#000000">@item.BusinessPartner </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FBE5D6" sdval="50" sdnum="1033;"><font color="#000000">@item.TotalPlanned</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><b><font size=4 color="#000000">@item.Delivered</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><b><font size=4 color="#000000">@item.Balance</font></b></td>
+
+
+                @foreach (var fdd in Model.fddDetails.GroupBy(x => x.ForcastDate))
+                {
+                    @foreach (var f in fdd)
+                    {
+                        @if (f.PartnerId == item.PartnerId)
+                        {
+
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000">@f.Projected</font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font>@f.Actual</td>
+                        }
+                        if (f.ForcastDate != fdd.Key)
+                        {
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
+                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font></td>
+                        }
+
+                    }
+
+                }
+
+            </tr>
+                }
+
+
+            <tr>
+
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="25" align="center" valign=middle><b><font color="#000000">Total </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom bgcolor="#FBE5D6" sdval="50" sdnum="1033;"><font color="#000000">@Model.partnerFDDs.Select(x => x.TotalPlanned).Sum()</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><b><font size=4 color="#000000">@Model.partnerFDDs.Select(x => x.Delivered).Sum()</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="1033;"><b><font size=4 color="#000000">@Model.partnerFDDs.Select(x => x.Balance).Sum()</font></b></td>
+
+              
+                  
+
+                    @foreach (var fdd in Model.fddDetails.GroupBy(x => x.ForcastDate))
+                    {
+ 
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000">@fdd.Select(x=>x.Projected).Sum()</font></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="3" sdnum="1033;"><font color="#000000"></font>@fdd.Select(x => x.Actual).Sum()</td>
+
+                    }
+
+                  
+              
+            </tr>
+
+                </table>
+                </div>
+            </div>
+        </div>
+        @section Scripts{
+
+            <script>
+                $("#endDate").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'yy-mm-dd'
+
+                });
+                $("#startDate").datepicker(
+                    {
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: 'yy-mm-dd',
+                        onClose: function () {
+                            $("#endDate").datepicker(
+                                "change",
+                                { minDate: new Date($('#startDate').val()) }
+                            );
+                        }
+                    }
+                );
+
+                $(document).off("click", "#GanerateBtn");
+                $(document).on("click", "#GanerateBtn", function () {
+                    var SDate = $("#startDate").val();
+                    var EDate = $("#endDate").val();
+                    window.location.href = `/BusinessUser/BusinessUser/FDD_Report?SDate=${SDate}&EDate=${EDate}`;
+                    return false;
+
+                });
+
+
+                $(document).off("click", "#btnDownload");
+                $(document).on("click", "#btnDownload", function () {
+                    var SDate = $("#startDate").val();
+                    var EDate = $("#endDate").val();
+                    window.location.href = `/BusinessUser/BusinessUser/DemoViewAsPDF?SDate=${SDate}&EDate=${EDate}`;
+                    return false;
+
+                });
+
+            </script>
+
+        }
+
+
+

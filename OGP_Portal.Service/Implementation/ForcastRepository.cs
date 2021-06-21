@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -26,6 +27,28 @@ namespace OGP_Portal.Service.Implementation
         {
             var dataSet = await _context.GetQueryDatatableAsync(StoredProcedureList.GetForcastList, paraObjects);
             return Common.ConvertDataTable<ForcastDto>(dataSet.Tables[0]);
+        }
+
+        public async Task<BalanceDto> GetBalance(SqlParameter[] paraObjects)
+        {
+            var dataSet = await _context.GetQueryDatatableAsync(StoredProcedureList.GetBalance, paraObjects);
+
+            return Common.ConvertDataTable<BalanceDto>(dataSet.Tables[0]).FirstOrDefault();
+        }
+
+        public async Task<FDD_DTO> GetFDDList(SqlParameter[] paraObjects)
+        {
+            var model = new FDD_DTO();
+            model.partnerFDDs = new List<PartnerFDD>();
+            model.fddDetails = new List<FddDetail>();
+            var dataSet = await _context.GetQueryDatatableAsync(StoredProcedureList.GetFDDList, paraObjects);
+            var first  = Common.ConvertDataTable<PartnerFDD>(dataSet.Tables[0]);
+            var second = Common.ConvertDataTable<FddDetail>(dataSet.Tables[1]);
+
+            model.partnerFDDs.AddRange(first);
+            model.fddDetails.AddRange(second);
+
+            return model;
         }
 
     }

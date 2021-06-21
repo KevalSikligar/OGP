@@ -33,6 +33,7 @@ namespace OGP_Portal.Service.Enums
         public const string GetBalance = @"GetBalance";
         public const string GetEntryList = @"GetEntryList";
         public const string GetForcastList = @"GetForcastList";
+        public const string GetFDDList = @"GetFDDList";
         public const string GetBusinessPartnerEntryList = @"GetBusinessPartnerEntryList";
         public const string GetLogEntryList = @"GetLogEntryList";
         public const string GetAdminDashboardEntryList = @"GetAdminDashboardEntryList";

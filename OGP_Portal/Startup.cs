@@ -21,6 +21,7 @@ using OGP_Portal.Service.Utility;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
+using Rotativa.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -268,7 +269,7 @@ namespace OGP_Portal
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<Role> roleManager)
+        public void Configure(IApplicationBuilder app,IWebHostEnvironment env, UserManager<ApplicationUser> userManager, RoleManager<Role> roleManager, Microsoft.AspNetCore.Hosting.IHostingEnvironment env2)
         {
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
@@ -333,7 +334,7 @@ namespace OGP_Portal
 
             OGP_IdentityDataInitializer.SeedData(userManager, roleManager);
 
-            //RotativaConfiguration.Setup(env);
+            RotativaConfiguration.Setup(env2);
         }
     }
 }

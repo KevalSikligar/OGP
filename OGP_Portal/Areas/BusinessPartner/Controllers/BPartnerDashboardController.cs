@@ -484,15 +484,18 @@ namespace OGP_Portal.Areas.BusinessPartner.Controllers
 			var model = new OGPEntryDTO();
 			model.MaxOGP = MaxOGP;
 			var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
-			var balance = (from u in result.Users
-						   select u.LastName)
-					   .Union(from u in result.Users
-							  select .ToList();
+
+			var Parameters = new List<SqlParameter>
+				{
+					new SqlParameter("@userId",SqlDbType.BigInt){Value = Convert.ToInt64(User.GetUserId())}
+
+				};
+			var balance =await  _forcastService.GetBalance(Parameters.ToArray());
 
 
 
 			model.PartnerName = user.FirstName;
-			model.Balance = balance;
+			model.Balance = balance.Balance;
 			if (g_model != null)
 			{
 				model.G_ShellReceipt = g_model.ShellReceipt;

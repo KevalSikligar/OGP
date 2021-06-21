@@ -12,5 +12,7 @@ namespace OGP_Portal.Service.Interface
 	public interface IForcastService : IGenericService<Forcast>
     {
         Task<List<ForcastDto>> GetForcastList(SqlParameter[] paraObjects);
+        Task<FDD_DTO> GetFDDList(SqlParameter[] paraObjects);
+        Task<BalanceDto> GetBalance(SqlParameter[] paraObjects);
     }
 }
